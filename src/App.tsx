@@ -104,7 +104,6 @@ const AppContent = () => {
             {filteredItems.map((item: any, itemIndex: number) => (
               <LuxuryCard
                 key={item.id || itemIndex}
-                id={`hadith-${itemIndex}`}
                 title={`حديث ${itemIndex + 1}`}
                 text={item}
                 category="hadith"
@@ -148,7 +147,6 @@ const AppContent = () => {
             return (
               <LuxuryCard
                 key={item.id || itemIndex}
-                id={item.id || `${categoryName}-${itemIndex}`}
                 title={displayTitle}
                 text={displayText}
                 source={source}

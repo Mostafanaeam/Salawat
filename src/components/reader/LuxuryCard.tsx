@@ -1,14 +1,12 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Bookmark, Check, Copy, Heart, Volume2, Loader2, BookOpen } from "lucide-react";
+import { Check, Copy, Volume2, Loader2, BookOpen } from "lucide-react";
 import { useState, useCallback } from "react";
 import { useTheme } from "../../hooks/useTheme";
 import { useToast } from "../ui/Toast";
-import { useFavorites } from "../../hooks/useFavorites";
 
 export interface LuxuryCardProps {
-  id: string;
   title: string;
   text: string;
   source?: string;
@@ -36,7 +34,6 @@ const categoryLabels: Record<CategoryKey, string> = {
 };
 
 export const LuxuryCard = ({
-  id,
   title,
   text,
   source,
@@ -47,22 +44,11 @@ export const LuxuryCard = ({
   style,
 }: LuxuryCardProps) => {
   const { fontSize } = useTheme();
-  const { isFavorite, toggleFavorite } = useFavorites();
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
-  const favoriteStatus = isFavorite(id);
 
   const catKey = category as CategoryKey;
-
-  const handleFavorite = useCallback(() => {
-    toggleFavorite(id);
-    toast({
-      title: favoriteStatus ? "أُزيل من المفضلة" : "أُضيف للمفضلة",
-      description: `${title.slice(0, 30)}... ${favoriteStatus ? "أُزيل" : "أُضيف"} للإشارات`,
-      variant: "default",
-    });
-  }, [id, title, favoriteStatus, toggleFavorite, toast]);
 
   const handleCopy = useCallback(async () => {
     try {
@@ -139,38 +125,6 @@ export const LuxuryCard = ({
           </div>
 
           <div className="flex items-center gap-1.5 flex-shrink-0">
-            <motion.button
-              className="btn-icon-luxury w-10 h-10"
-              onClick={(e) => { e.stopPropagation(); handleFavorite(); }}
-              aria-label={favoriteStatus ? "إزالة من المفضلة" : "إضافة للمفضلة"}
-              whileHover={{ scale: 1.12, rotate: 5 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <AnimatePresence mode="wait">
-                {favoriteStatus ? (
-                  <motion.div
-                    key="filled"
-                    initial={{ scale: 0, rotate: -90 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    exit={{ scale: 0, rotate: 90 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    <Heart className="w-5 h-5 fill-current text-amber-400" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="outline"
-                    initial={{ scale: 0, rotate: 90 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    exit={{ scale: 0, rotate: -90 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    <Bookmark className="w-5 h-5 text-stone-400" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
-
             <motion.button
               className="btn-icon-luxury w-10 h-10"
               onClick={(e) => { e.stopPropagation(); handleCopy(); }}
