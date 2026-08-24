@@ -1,36 +1,33 @@
-import { createContext, useContext, useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-const SearchContext = createContext<string>("");
+export const useSearch = (content: any) => {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<any[]>([]);
 
-export const useSearch = () => {
-  const context = useContext(SearchContext);
-  if (!context) {
-    throw new Error("useSearch must be used within SearchProvider");
-  }
-  return context;
-};
+  const handleSearch = useCallback((q: string) => {
+    setQuery(q);
+    const lowerQ = q.toLowerCase();
+    if (!q.trim()) {
+      setResults([]);
+      return;
+    }
 
-export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
-  const [query, setQuery] = useState<string>("");
+    const matched: any[] = [];
+    for (const category of Object.values(content.categories)) {
+      if (category.title?.toLowerCase().includes(lowerQ)) {
+        matched.push({ category, items: category.items || [] });
+      }
+      if (category.verses) {
+        const foundVerses = category.verses.filter(
+          (v: any) => v.front.toLowerCase().includes(lowerQ) || v.back.toLowerCase().includes(lowerQ)
+        );
+        if (foundVerses.length > 0) {
+          matched.push({ category, verses: foundVerses });
+        }
+      }
+    }
+    setResults(matched);
+  }, [content]);
 
-  return (
-    <SearchContext.Provider value={query}>
-      {children}
-    </SearchContext.Provider>
-  );
-};
-
-export const useFilteredContent = (content: any[]) => {
-  const query = useSearch();
-  if (!query.trim()) {
-    return content;
-  }
-  const lowerQuery = query.toLowerCase();
-  return content.filter(
-    (item) =>
-      (item.title && item.title.toLowerCase().includes(lowerQuery)) ||
-      (item.text && item.text.toLowerCase().includes(lowerQuery)) ||
-      (item.titleAr && item.titleAr.toLowerCase().includes(lowerQuery)) ||
-      (item.content && item.content.toLowerCase().includes(lowerQuery))
-  );
+  return { query, setQuery, handleSearch, results };
 };

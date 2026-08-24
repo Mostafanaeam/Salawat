@@ -1,122 +1,83 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import "./index.css";
+import { SearchProvider } from "./hooks/useSearch";
+import { ThemeProvider } from "./hooks/useTheme";
+import { FontSizeProvider } from "./hooks/useFontSize";
+import { FavoritesProvider } from "./hooks/useFavorites";
+import { SearchInput } from "./components/ui/SearchInput";
+import { ThemeToggle } from "./components/ui/ThemeToggle";
+import { Sidebar } from "./components/layout/Sidebar";
+import { Navbar } from "./components/layout/Navbar";
+import { Footer } from "./components/layout/Footer";
+import { PoemRenderer } from "./components/reader/PoemRenderer";
+import { HadithList } from "./components/reader/HadithList";
+import { MetadataHeader } from "./components/reader/MetadataHeader";
+import { useSearch } from "./hooks/useSearch";
+import { content } from "./data/content";
+import { FontResizer } from "./components/ui/FontResizer";
+import { useFontSize } from "./hooks/useFontSize";
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App = () => {
+  const { fontSize, increaseSize, decreaseSize } = useFontSize();
+  const { handleSearch, results } = useSearch(content);
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <FontSizeProvider>
+      <div className="min-h-screen bg-background dark:bg-gray-900 min-h-screen">
+        <Navbar />
+        <main className="ml-64 md:ml-64 w-full transition-all duration-300 bg-background dark:bg-gray-900">
+          <div className="flex items-center justify-between mb-4">
+            <SearchInput
+              placeholder="Search prayers, titles, or verses..."
+              onSearch={handleSearch}
+            />
+            <FontResizer fontSize={fontSize} onSizeChange={increaseSize} />
+          </div>
+          <div className="p-4 pt-4 overflow-y-auto max-w-2xl mx-auto">
+            <MetadataHeader meta={content.meta} />
+            {Object.entries(content.categories).map(([categoryName, categoryItems], catIndex) => {
+              const filteredItems = results.length > 0 ? results.flatMap(r => r.verses || r.items || []).filter(
+                (item: any) => item.title?.toLowerCase().includes((results[0]?.query?.toLowerCase() || '')) ||
+                                item.text?.toLowerCase().includes((results[0]?.query?.toLowerCase() || ''))
+              ) : categoryItems;
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
-}
-
-export default App
+              if (categoryName === "القصائد الشعرية") {
+                return (
+                  <div key={catIndex} className="mb-8">
+                    <h2 className="font-amiri text-xl font-bold text-gray-900 dark:text-emerald-900 mb-4 border-b border-gray-200 dark:border-gray-800 pb-2">{categoryName}</h2>
+                    {filteredItems?.map((poem: any, poemIndex: number) => (
+                      <PoemRenderer
+                        key={poemIndex}
+                        verses={poem.verses}
+                      />
+                    ))}
+                  </div>
+                );
+              }
+              if (categoryName === "أحاديث الفضل") {
+                return (
+                  <div key={catIndex} className="mb-8">
+                    <h2 className="font-amiri text-xl font-bold text-gray-900 dark:text-emerald-900 mb-4 border-b border-gray-200 dark:border-gray-800 pb-2">{categoryName}</h2>
+                    <HadithList hadiths={filteredItems as string[]} />
+                  </div>
+                );
+              }
+              return (
+                <div key={catIndex} className="mb-8">
+                  <h2 className="font-amiri text-xl font-bold text-gray-900 dark:text-emerald-900 mb-4 border-b border-gray-200 dark:border-gray-800 pb-2">{categoryName}</h2>
+                  {filteredItems?.map((item: any, itemIndex: number) => (
+                    <div key={itemIndex} className="prose dark:prose-invert mb-4">
+                      <p className="font-amiri text-base text-gray-800 dark:text-gray-100">
+                        {item.text || item.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+        </main>
+        <Footer />
+      </div>
+    </FontSizeProvider>
+  );
+};
