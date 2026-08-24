@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #1e293b;
+    --muted: #64748b;
+    --accent: #0f766e;
+    --accent-hover: #2accf0;
+    --card: #ffffff;
+    --border: #e2e8f0;
+  }
+
+  [dir="rtl"] {
+    --background: #f8fafc;
+    --foreground: #0f766e;
+    --muted: #64748b;
+    --accent: #0f766e;
+    --accent-hover: #2accf0;
+    --card: #ffffff;
+    --border: #e2e8f0;
+  }
+
+  body {
+    font-family: 'Amiri', 'Cairo', 'serif';
+    direction: rtl;
+    text-align: right;
+    background-color: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cairo', 'Readex Pro', 'sans-serif';
+  }
+}
