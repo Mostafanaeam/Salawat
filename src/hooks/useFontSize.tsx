@@ -1,6 +1,12 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
-const FontSizeContext = createContext<number>(16);
+interface FontSizeContextType {
+  fontSize: number;
+  increaseSize: () => void;
+  decreaseSize: () => void;
+}
+
+const FontSizeContext = createContext<FontSizeContextType | undefined>(undefined);
 
 export const useFontSize = () => {
   const context = useContext(FontSizeContext);
@@ -25,8 +31,11 @@ export const FontSizeProvider = ({ children }: { children: React.ReactNode }) =>
     document.body.style.fontSize = `${fontSize}px`;
   }, [fontSize]);
 
+  const increaseSize = () => setFontSize((prev) => Math.min(prev + 1, 20));
+  const decreaseSize = () => setFontSize((prev) => Math.max(prev - 1, 14));
+
   return (
-    <FontSizeContext.Provider value={fontSize}>
+    <FontSizeContext.Provider value={{ fontSize, increaseSize, decreaseSize }}>
       {children}
     </FontSizeContext.Provider>
   );

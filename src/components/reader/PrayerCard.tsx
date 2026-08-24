@@ -1,6 +1,6 @@
-import { Card, CardHeader, CardContent, CardFooter } from "./card";
-import { Bookmark, Check, Copy, Loader2 } from "lucide-react";
-import { useFavorites } from "../hooks/useFavorites";
+import { Card, CardHeader, CardContent, CardFooter } from "../ui/card";
+import { Bookmark, Check, Copy } from "lucide-react";
+import { useFavorites } from "../../hooks/useFavorites";
 import { useToast } from "../ui/Toast";
 
 export const PrayerCard = ({
@@ -16,12 +16,13 @@ export const PrayerCard = ({
 }) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const { toast } = useToast();
+  const favoriteStatus = isFavorite(id);
 
   const handleFavorite = () => {
     toggleFavorite(id);
     toast({
-      title: isFavorite ? "Removed from favorites" : "Added to favorites",
-      description: `${title} ${isFavorite ? "removed" : "added"} to bookmarks`,
+      title: favoriteStatus ? "Removed from favorites" : "Added to favorites",
+      description: `${title} ${favoriteStatus ? "removed" : "added"} to bookmarks`,
       variant: "default",
     });
   };
@@ -38,9 +39,9 @@ export const PrayerCard = ({
   return (
     <Card className="group relative rounded-lg border border-gray-200 bg-white dark:bg-gray-900 overflow-hidden shadow-sm transition-colors duration-300 hover:data-[state=dark]:bg-emerald-900/20 cursor-pointer group-hover:shadow-lg transition-shadow duration-200 max-w-sm mx-auto min-h-[200px]">
       <CardHeader className="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900 py-3 px-4">
-        <h3 className="font-medium text-gray-900 dark:text-gray-100 text-sm font-medium tracking-widest uppercase tracking-wider">{trendyTitle}</h3>
+        <h3 className="font-medium text-gray-900 dark:text-gray-100 text-sm font-medium tracking-widest uppercase tracking-wider">{title}</h3>
         {source && <p className="text-xs text-gray-500 dark:text-gray-400">{source}</p>}
-      </div>
+      </CardHeader>
       <CardContent className="p-4 pt-0">
         <p className="font-amiri text-base text-gray-800 dark:text-gray-100 leading-relaxed">{text}</p>
       </CardContent>
@@ -50,7 +51,7 @@ export const PrayerCard = ({
           className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
           aria-label="Toggle favorite"
         >
-          {isFavorite ? (
+          {favoriteStatus ? (
             <Check className="w-4 h-4" />
           ) : (
             <Bookmark className="w-4 h-4" />

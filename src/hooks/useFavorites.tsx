@@ -1,6 +1,12 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
-const FavoritesContext = createContext<string[]>([]);
+interface FavoritesContextType {
+  favorites: string[];
+  toggleFavorite: (id: string) => void;
+  isFavorite: (id: string) => boolean;
+}
+
+const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
 export const useFavorites = () => {
   const context = useContext(FavoritesContext);

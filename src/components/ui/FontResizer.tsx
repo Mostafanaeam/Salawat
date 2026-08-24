@@ -1,12 +1,8 @@
-import { useFontSize } from "../../hooks/useFontSize";
-
-export const FontResizer = () => {
-  const { fontSize, increaseSize, decreaseSize } = useFontSize();
-
+export const FontResizer = ({ fontSize, onIncrease, onDecrease }: { fontSize: number; onIncrease: () => void; onDecrease: () => void }) => {
   return (
     <div className="flex items-center gap-2 text-sm text-gray-600">
       <button
-        onClick={decreaseSize}
+        onClick={onDecrease}
         className="p-1.5 rounded-md bg-gray-100 dark:bg-gray-900 border border-gray-300 transition-colors hover:bg-gray-200 dark:hover:bg-gray-800"
         disabled={fontSize <= 14}
         aria-label="Decrease font size"
@@ -20,7 +16,7 @@ export const FontResizer = () => {
         <span className="text-gray-600 font-medium">{fontSize}px</span>
       </span>
       <button
-        onClick={increaseSize}
+        onClick={onIncrease}
         className="p-1.5 rounded-md bg-gray-100 dark:bg-gray-900 border border-gray-300 transition-colors hover:bg-gray-200 dark:hover:bg-gray-800"
         disabled={fontSize >= 20}
         aria-label="Increase font size"

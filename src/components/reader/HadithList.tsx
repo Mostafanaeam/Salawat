@@ -1,8 +1,4 @@
-import { useFontSize } from "../hooks/useFontSize";
-
 export const HadithList = ({ hadiths }: { hadiths: string[] }) => {
-  const { fontSize } = useFontSize();
-
   return (
     <div className="prose dark:prose-invert space-y-4">
       {hadiths.map((hadith, index) => (
