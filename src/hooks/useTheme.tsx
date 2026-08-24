@@ -33,8 +33,6 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
     if (storedTheme && ["dark", "light", "sepia"].includes(storedTheme)) {
       setThemeState(storedTheme);
-    } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-      setThemeState("light");
     }
 
     if (storedFontSize) {
