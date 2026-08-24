@@ -174,7 +174,7 @@ const AppContent = () => {
 
       <Navbar />
 
-      <main className="relative z-10 pb-32 px-4">
+      <main className="relative z-10 pb-32 px-4 md:px-6 lg:px-8">
         <HeroSection />
 
         {dedicationData && (
@@ -185,7 +185,7 @@ const AppContent = () => {
           />
         )}
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 pt-8">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 md:px-6 lg:px-8 pt-8 overflow-x-hidden">
           {content
             .filter((c: any) => c.category !== "المقدمة والإهداء")
             .map((categoryData, catIndex) =>

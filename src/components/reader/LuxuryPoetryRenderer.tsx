@@ -105,8 +105,8 @@ export const LuxuryPoetryRenderer = ({
                   <div className="absolute right-[-6px] top-0 w-3 h-3 rounded-full hidden lg:block" style={{ background: "var(--gradient-gold)", boxShadow: "0 0 12px rgba(251,191,36,0.5)" }} />
                   <div className="absolute right-[-10px] top-0 w-1 h-1 rounded-full hidden lg:block" style={{ background: "var(--text-gold)" }} />
 
-                  <div className="text-poetry text-right pr-4 relative z-10" style={{ lineHeight: 2.8, fontSize: `${fontSize * 1.15}px` }}>
-                    <p className="whitespace-pre-wrap" style={{ color: "var(--text-primary)", fontWeight: 500 }}>{verse.front}</p>
+                  <div className="text-poetry text-right pr-4 relative z-10 overflow-wrap-anywhere" style={{ lineHeight: 2.8, fontSize: `${fontSize * 1.15}px` }}>
+                    <p className="whitespace-pre-wrap overflow-wrap-anywhere" style={{ color: "var(--text-primary)", fontWeight: 500 }}>{verse.front}</p>
                   </div>
                 </motion.div>
 
@@ -118,8 +118,8 @@ export const LuxuryPoetryRenderer = ({
                   <div className="absolute left-[-6px] top-0 w-3 h-3 rounded-full hidden lg:block" style={{ background: "var(--gradient-gold)", boxShadow: "0 0 12px rgba(251,191,36,0.5)" }} />
                   <div className="absolute left-[-10px] top-0 w-1 h-1 rounded-full hidden lg:block" style={{ background: "var(--text-gold)" }} />
 
-                  <div className="text-poetry text-right pl-4 relative z-10" style={{ lineHeight: 2.8, fontSize: `${fontSize * 1.15}px` }}>
-                    <p className="whitespace-pre-wrap" style={{ color: "var(--text-secondary)", fontWeight: 400 }}>{verse.back}</p>
+                  <div className="text-poetry text-right pl-4 relative z-10 overflow-wrap-anywhere" style={{ lineHeight: 2.8, fontSize: `${fontSize * 1.15}px` }}>
+                    <p className="whitespace-pre-wrap overflow-wrap-anywhere" style={{ color: "var(--text-secondary)", fontWeight: 400 }}>{verse.back}</p>
                   </div>
                 </motion.div>
               </div>
@@ -201,13 +201,13 @@ export const LuxuryPoetryCard = ({
               transition={{ delay: index * 0.08, duration: 0.4 }}
             >
               <div className="grid sm:grid-cols-2 gap-4 items-start">
-                <div className="text-poetry text-right pr-3 relative" style={{ lineHeight: 2.6 }}>
+                <div className="text-poetry text-right pr-3 sm:pr-6 relative overflow-hidden overflow-wrap-anywhere" style={{ lineHeight: 2.6 }}>
                   <div className="absolute right-0 top-0 bottom-0 w-px hidden sm:block" style={{ background: "var(--gradient-gold)" }} />
-                  <p className="whitespace-pre-wrap" style={{ color: "var(--text-primary)", fontWeight: 500 }}>{verse.front}</p>
+                  <p className="whitespace-pre-wrap overflow-wrap-anywhere" style={{ color: "var(--text-primary)", fontWeight: 500 }}>{verse.front}</p>
                 </div>
-                <div className="text-poetry text-right pl-3 relative" style={{ lineHeight: 2.6 }}>
+                <div className="text-poetry text-right pl-3 sm:pl-6 relative overflow-hidden overflow-wrap-anywhere" style={{ lineHeight: 2.6 }}>
                   <div className="absolute left-0 top-0 bottom-0 w-px hidden sm:block" style={{ background: "var(--gradient-gold)" }} />
-                  <p className="whitespace-pre-wrap" style={{ color: "var(--text-secondary)", fontWeight: 400 }}>{verse.back}</p>
+                  <p className="whitespace-pre-wrap overflow-wrap-anywhere" style={{ color: "var(--text-secondary)", fontWeight: 400 }}>{verse.back}</p>
                 </div>
               </div>
 

@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Menu } from "lucide-react";
 import { useTheme } from "../../hooks/useTheme";
 import { useState, useRef, useEffect } from "react";
 
@@ -52,18 +51,6 @@ export const Navbar = () => {
               <p className="text-xs text-stone-400 font-cairo tracking-widest uppercase mt-0.5">كتاب الصلاة والأذكار</p>
             </div>
           </motion.div>
-
-          <div className="flex items-center gap-2 lg:gap-3">
-            <motion.button
-              className="btn-icon-luxury lg:hidden"
-              onClick={() => {}}
-              aria-label="فتح القائمة"
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.92 }}
-            >
-              <Menu className="w-6 h-6" />
-            </motion.button>
-          </div>
         </div>
       </div>
     </motion.nav>

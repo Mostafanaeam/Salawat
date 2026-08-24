@@ -1,0 +1,66 @@
+{
+  "name": "صلوات - كتاب الصلوات والأذكار النبوية",
+  "short_name": "صلوات",
+  "description": "كتاب الصلوات والأذكار النبوية - تجربة قراءة فاخرة بروح التراث الإسلامي",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#062d1f",
+  "theme_color": "#062d1f",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["books", "lifestyle", "education"],
+  "shortcuts": [
+    {
+      "name": "الصلوات المأثورة",
+      "short_name": "الصلوات",
+      "description": "تصفح الصلوات المأثورة",
+      "url": "/?category=الصلوات المأثورة",
+      "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "القصائد الشعرية",
+      "short_name": "القصائد",
+      "description": "تصفح القصائد الشعرية",
+      "url": "/?category=القصائد الشعرية",
+      "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "أحاديث الفضل",
+      "short_name": "الأحاديث",
+      "description": "تصفح أحاديث الفضل",
+      "url": "/?category=أحاديث الفضل",
+      "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

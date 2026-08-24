@@ -255,7 +255,7 @@ export const LuxuryCard = ({
         </motion.div>
 
         <motion.div
-          className="prose dark:prose-invert max-w-none"
+          className="prose dark:prose-invert max-w-none overflow-wrap-anywhere"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
@@ -266,7 +266,7 @@ export const LuxuryCard = ({
             fontFamily: type === "poetry" ? '"Scheherazade New", "Amiri Quran", serif' : '"Amiri", serif',
           }}
         >
-          <p className="text-hadith leading-[2.2] whitespace-pre-wrap">{text}</p>
+          <p className="text-hadith leading-[2.2] whitespace-pre-wrap overflow-wrap-anywhere">{text}</p>
         </motion.div>
       </div>
 
