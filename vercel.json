@@ -29,7 +29,7 @@
     }
   ],
   "functions": {
-    "/api/*": {
+    "api/*": {
       "runtime": "nodejs20"
     }
   }
